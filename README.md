@@ -8,3 +8,17 @@ the 4 hands arise randomly, usually a hand will have cards of all colors
 occur where a hand will have no cards from one (or even more colors) at all. 
 The hand field should therefore contains the appropriate fields to represent any 
 hand that arises.
+
+
+In the file "hands.txt", which contains the cards of each hand, each hand consists of 13 entries, where each entry includes 2 characters 
+(possibly separated by spaces or other whitespace characters):
+-> The first character represents the rank/symbol of the card.
+-> The second character represents the suit.
+Note: To ensure all numbers are represented with a single character, the number
+10 is represented by the letter T (from the English word "ten"). Additionally, 
+the four suits (spades, hearts, diamonds, and clubs) are represented by the 
+following letters:
+-> S (for spades)
+-> H (for hearts)
+-> D (for diamonds)
+-> C (for clubs)
