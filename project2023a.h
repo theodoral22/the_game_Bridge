@@ -16,37 +16,6 @@ struct hand
 };
 
 /* 
-The function takes all the hands '*A' and reads an integer (N)from the keyboard,
-which corresponds to the number of hands. It then reads the data for N hands. 
-The function returns the number N as a result.
-Each hand consists of 13 entries, where each entry includes 2 characters 
-(possibly separated by spaces or other whitespace characters):
--> The first character represents the rank/symbol of the card.
--> The second character represents the suit.
-Note: To ensure all numbers are represented with a single character, the number
-10 is represented by the letter T (from the English word "ten"). Additionally, 
-the four suits (spades, hearts, diamonds, and clubs) are represented by the 
-following letters:
--> S (for spades)
--> H (for hearts)
--> D (for diamonds)
--> C (for clubs)
-*/
-int readFromInput(struct hand *A)
-{
-    int N,i;
-    scanf ("%d",&N); //reads the number N from the keyboard
-    scanf (" "); //consumes any whitespace characters following N
-    for (i=0;i<N;i++) //iterates for each of the N hands
-    {
-        fgets (A[i].d,39,stdin); //reads the 13 entries as a line
-        scanf (" "); //consumes any whitespace characters following N
-        A[i].d[(strcspn(A[i].d,"\n"))]='\0';
-    }
-    return N;
-}
-
-/* 
 The function takes a specific hand 'xeri' as input and displays the hand on the
 screen
 */
@@ -361,13 +330,14 @@ reading and reads an integer (N) from the file, which represents the number of h
 After that, the function reads the data for N hands from the file in the same way 
 as the "readFromInput function". The function returns the number of hands read.
 */
-int readFromFile(struct hand *A)
+int readFromFile(struct hand *A,char *S)
 {
     int N,i=0;
-    char S[10],*A1; //A1:for the hand data
+    char *A1; //A1:for the hand data
+    //char S[10];
     
-    scanf ("%s",S); //read the filename from the keyboard
-    S[strcspn(S,"\n")]='\0'; //remove any trailing newline character
+    //scanf ("%s",S); //read the filename from the keyboard
+    //S[strcspn(S,"\n")]='\0'; //remove any trailing newline character
     fp=fopen(S,"r"); //open the file for reading
     if (fp!=NULL)
     {
@@ -389,6 +359,7 @@ which will contain the name of a text file. Then, it opens the file S for writin
 and writes all the hands into the file. The writing process will be done in the 
 same way as the "printHand" function displayed the hands on the screen.
 */
+/*
 void saveData(struct hand *A,int N)
 {
     int i,plS,plH,plD,plC,xeri;
@@ -458,3 +429,4 @@ void saveData(struct hand *A,int N)
     }  
     fclose(fp); //close the file
 }
+*/
