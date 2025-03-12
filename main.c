@@ -22,28 +22,50 @@ int main()
     int n=0,i,temp; //n:number of hands, temp:temporary variable
     struct hand A[MAX]; //array to store hands
     char k,c; //k:user's command, c:unused character variable
+    char S[9]="hands.txt";
      
+    n = readFromFile(A,S); //start by reading the file with the hands
     do 
     { 
-        scanf(" %c",&k); //read user input (command character)
+        //loop until the user gives the correct letter
+        do {
+            printf("Select one of the following characters:\n");
+            printf("-> 's': Prints a specific hand.\n");
+            printf("-> 'r': Suggests an opening bid based on the hand.\n");
+            printf("-> 'p': Calculates and displays the High Card Points and declarer points.\n");
+            printf("-> 'd': Determines if the hand is balanced or unbalanced.\n");
+            printf("-> 'o': Saves hands to a file.\n");
+            printf("-> 'q': Quits the program.\n");
+            scanf(" %c",&k); //read user input (command character)
+            if (k!='s' && k!='r' && k!='p' && k!='d' && k!='o' && k!='q')
+                printf ("Wrong answer. Try again.\n");
+        } while (k!='s' && k!='r' && k!='p' && k!='d' && k!='o' && k!='q');
+        
         switch (k) 
-        {             
-            case 'i': //read hands from user input
-                n = readFromInput(A); 
-                break; 
+        {   
             case 's': //print a specific hand
-                scanf ("%d",&i); 
-                if (i>=0 && i<n) 
-                    printHand(A[i]); 
+                printf ("You selected to print a specific hand.\n");
+                
+                //loop until the user gives the correct number
+                do {
+                    printf ("Give me the number of the hand that you want to see.\n");
+                    scanf ("%d",&i); 
+                    if (i<=0 || i>n)
+                        printf ("Wrong answer. Try a number which is greater than 0 and less than %d\n",n+1);
+                } while (i<=0 || i>n);
+                
+                printHand(A[i-1]); 
                 printf ("\n"); 
                 break; 
             case 'r': //display the appropriate opening bid for a given hand 
+                printf ("You selected to suggest an opening bid based on the hand.\n");
                 scanf ("%d",&i); 
                 if (i>=0 && i<n) 
                     response(A[i]); 
                 printf ("\n"); 
                 break; 
             case 'p': //print the High Card Points and declarer points for a hand
+                printf("You selected to calculate and display the High Card Points and declarer points.\n");
                 scanf ("%d",&i); 
                 if (i>=0 && i<n) 
                 { 
@@ -53,6 +75,7 @@ int main()
                 printf ("\n"); 
                 break; 
             case 'd': //check if a hand has a balanced distribution
+                printf("You selected to determine if the hand is balanced or unbalanced.\n");
                 scanf ("%d",&i); 
                 if (i>=0 && i<n) 
                 { 
@@ -62,15 +85,16 @@ int main()
                         printf ("Unbalanced distribution\n"); 
                 } 
                 printf ("\n"); 
-                break; 
-            case 'f': //read hands from a file
-                n = readFromFile(A); 
-                break; 
+                break;
+            /*
             case 'o': //save hands to a file
+                printf("You selected to save hands to a file.\n");
                 saveData(A,n); 
-                break;                         
+                break;    
+            */
         } 
     } 
     while (k!='q'); //continue until the user inputs 'q' (quit)
+    printf("End of the game. Goodbye!");
     return 0; 
-} 
+}
