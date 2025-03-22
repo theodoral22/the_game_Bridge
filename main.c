@@ -1,18 +1,16 @@
 #include <stdio.h> 
 #include <stdbool.h> 
 #define MAX 100 //define the maximum number of hands that can be stored
-#include "project2023a.h" 
+#include "functions.h" 
 
 /*
 This is a menu-driven program that allows a user to input bridge hands, process 
 them, and save them. The user enters a command character, and the program performs 
 the corresponding action:
--> 'i': Reads hands from the keyboard.
 -> 's': Prints a specific hand.
 -> 'r': Suggests an opening bid based on the hand.
 -> 'p': Calculates and displays the High Card Points and declarer points.
 -> 'd': Determines if the hand is balanced or unbalanced.
--> 'f': Reads hands from a file.
 -> 'o': Saves hands to a file.
 -> 'q': Quits the program.
 The program runs in a loop until the user enters 'q' to quit.
@@ -49,7 +47,7 @@ int main()
                 //loop until the user gives the correct number
                 do {
                     printf ("Give me the number of the hand that you want to see.\n");
-                    scanf ("%d",&i); 
+                    scanf ("%d",&i);
                     if (i<=0 || i>n)
                         printf ("Wrong answer. Try a number which is greater than 0 and less than %d\n",n+1);
                 } while (i<=0 || i>n);
