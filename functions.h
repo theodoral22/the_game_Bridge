@@ -2,15 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-FILE *fp;
-
 /*
 structure which represents a hand
 */
 struct hand 
 {
     //d:for the data of the hand ,S:for the spades, H:for the hearts, D:for the diamonds, C: for the clubs
-    char d[39],S[13],H[13],D[13],C[13]; 
+    char d[40],S[13],H[13],D[13],C[13]; 
     bool kat; //indicates whether the hand follows a balanced distribution
     int oner,pontoi; //oner:high card points, pontoi:normal points
 };
@@ -56,7 +54,7 @@ void printHand(struct hand xeri)
     xeri.D[plD]='\0';
     xeri.H[plH]='\0';
     xeri.C[plC]='\0';
-
+    
     printf ("SPADES:   ");
     for (i=0;i<strlen(xeri.S);i++)
         printf ("%c ",xeri.S[i]);
@@ -338,15 +336,16 @@ int readFromFile(struct hand *A,char *S)
     
     //scanf ("%s",S); //read the filename from the keyboard
     //S[strcspn(S,"\n")]='\0'; //remove any trailing newline character
-    fp=fopen(S,"r"); //open the file for reading
+    FILE *fp=fopen(S,"r"); //open the file for reading
     if (fp!=NULL)
     {
         fscanf (fp,"%d",&N); //read the number of hands (N) from the file
+        fscanf(fp," "); //consume any leading whitespace
         for (i=0;i<N;i++) //read N hands from the file
         {
+            fgets (A[i].d,40,fp); //read a line (hand data) from the file
             fscanf(fp," "); //consume any leading whitespace
-            fgets (A[i].d,39,fp); //read a line (hand data) from the file
-            A[i].d[(strcspn(A[i].d,"\n"))]='\0';
+            A[i].d[(strcspn(A[i].d,"\r\n"))]='\0';
         } 
     }  
     fclose (fp); //close the file
