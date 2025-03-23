@@ -57,39 +57,50 @@ int main()
                 break; 
             case 'r': //display the appropriate opening bid for a given hand 
                 printf ("You selected to suggest an opening bid based on the hand.\n");
-                scanf ("%d",&i); 
-                if (i>=0 && i<n) 
-                    response(A[i]); 
+                
+                //loop until the user gives the correct number
+                do {
+                    printf ("Give me the number of the hand that you want to see.\n");
+                    scanf ("%d",&i);
+                    if (i<=0 || i>n)
+                        printf ("Wrong answer. Try a number which is greater than 0 and less than %d\n",n+1);
+                } while (i<=0 || i>n);
+                
+                response(A[i-1]); 
                 printf ("\n"); 
                 break; 
             case 'p': //print the High Card Points and declarer points for a hand
                 printf("You selected to calculate and display the High Card Points and declarer points.\n");
-                scanf ("%d",&i); 
-                if (i>=0 && i<n) 
-                { 
-                    temp = hcp(A[i]); 
-                    printf ("%d HCP (%d total)\n",temp,temp+declarer(A[i])); 
-                } 
+                
+                //loop until the user gives the correct number
+                do {
+                    printf ("Give me the number of the hand that you want to see.\n");
+                    scanf ("%d",&i);
+                    if (i<=0 || i>n)
+                        printf ("Wrong answer. Try a number which is greater than 0 and less than %d\n",n+1);
+                } while (i<=0 || i>n);
+                
+                temp = hcp(A[i-1]); 
+                printf ("%d HCP (%d total)\n",temp,temp+declarer(A[i-1])); 
                 printf ("\n"); 
                 break; 
             case 'd': //check if a hand has a balanced distribution
                 printf("You selected to determine if the hand is balanced or unbalanced.\n");
-                scanf ("%d",&i); 
-                if (i>=0 && i<n) 
-                { 
-                    if (balanced(A[i])) 
-                        printf ("Balanced distribution\n"); 
-                    else 
-                        printf ("Unbalanced distribution\n"); 
-                } 
+                
+                //loop until the user gives the correct number
+                do {
+                    printf ("Give me the number of the hand that you want to see.\n");
+                    scanf ("%d",&i);
+                    if (i<=0 || i>n)
+                        printf ("Wrong answer. Try a number which is greater than 0 and less than %d\n",n+1);
+                } while (i<=0 || i>n);
+ 
+                if (balanced(A[i-1])) 
+                    printf ("Balanced distribution\n"); 
+                else 
+                    printf ("Unbalanced distribution\n");
                 printf ("\n"); 
                 break;
-            /*
-            case 'o': //save hands to a file
-                printf("You selected to save hands to a file.\n");
-                saveData(A,n); 
-                break;    
-            */
         } 
     } 
     while (k!='q'); //continue until the user inputs 'q' (quit)
