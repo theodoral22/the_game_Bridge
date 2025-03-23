@@ -149,7 +149,7 @@ int hcp(struct hand xeri)
     int i;
     xeri.oner=0;
     //loop through the hand data
-    for (i=0;i<=36;i+=3) //each card consists of 3 characters: rank, suit, separator
+    for (i=0;i<strlen(xeri.d);i+=3) //each card consists of 3 characters: rank, suit, separator
     {
         if (xeri.d[i]=='A')
             xeri.oner+=4;
@@ -337,8 +337,11 @@ int readFromFile(struct hand *A,char *S)
     //scanf ("%s",S); //read the filename from the keyboard
     //S[strcspn(S,"\n")]='\0'; //remove any trailing newline character
     FILE *fp=fopen(S,"r"); //open the file for reading
-    if (fp!=NULL)
+    if (fp==NULL) 
     {
+        printf("Error: Could not open file %s\n", S);
+        return 1;
+    } else {
         fscanf (fp,"%d",&N); //read the number of hands (N) from the file
         fscanf(fp," "); //consume any leading whitespace
         for (i=0;i<N;i++) //read N hands from the file
@@ -347,85 +350,7 @@ int readFromFile(struct hand *A,char *S)
             fscanf(fp," "); //consume any leading whitespace
             A[i].d[(strcspn(A[i].d,"\r\n"))]='\0';
         } 
-    }  
+    }
     fclose (fp); //close the file
     return N;
 }
-
-/*
-The function takes all the hands '*A' and reads a string (S) from the keyboard, 
-which will contain the name of a text file. Then, it opens the file S for writing 
-and writes all the hands into the file. The writing process will be done in the 
-same way as the "printHand" function displayed the hands on the screen.
-*/
-/*
-void saveData(struct hand *A,int N)
-{
-    int i,plS,plH,plD,plC,xeri;
-    char S[10];
-    
-    scanf ("%s",S); //read the filename from the keyboard
-  
-    fp=fopen(S,"w"); //open the file for writing
-    if (fp!=NULL)
-    {
-        //loop through each hand
-        for (xeri=0;xeri<N;xeri++)
-        {
-            plS=0;
-            plH=0;
-            plD=0;
-            plC=0;
-            //loop through the hand data
-            for (i=0;i<strlen(A[xeri].d);i+=3) //each card consists of 3 characters: rank, suit, separator
-            {
-                //assign cards to the corresponding suit array
-                if (A[xeri].d[i+1]=='S')
-                {
-                    A[xeri].S[plS]=A[xeri].d[i];
-                    plS++;
-                }
-                else if (A[xeri].d[i+1]=='H')
-                {
-                    A[xeri].H[plH]=A[xeri].d[i];
-                    plH++;
-                }
-                else if (A[xeri].d[i+1]=='D')
-                {
-                    A[xeri].D[plD]=A[xeri].d[i];
-                    plD++;
-                }
-                else
-                {
-                    A[xeri].C[plC]=A[xeri].d[i];
-                    plC++;
-                }
-            }
-            A[xeri].S[plS]='\0';
-            A[xeri].D[plD]='\0';
-            A[xeri].H[plH]='\0';
-            A[xeri].C[plC]='\0';
-      
-            //write the hand details to the file
-            fprintf (fp,"SPADES:   ");
-            for (i=0;i<plS;i++)
-            fprintf (fp,"%c ",A[xeri].S[i]);
-  
-            fprintf (fp,"\nHEARTS:   ");
-            for (i=0;i<plH;i++)
-                fprintf (fp,"%c ",A[xeri].H[i]);
-  
-            fprintf (fp,"\nDIAMONDS: ");
-            for (i=0;i<plD;i++)
-                fprintf (fp,"%c ",A[xeri].D[i]);
-  
-            fprintf (fp,"\nCLUBS:    ");
-            for (i=0;i<plC;i++)
-                fprintf (fp,"%c ",A[xeri].C[i]);
-                
-            fprintf (fp,"\n\n"); //separate hands with blank lines
-        }
-    }  
-    fclose(fp); //close the file
-}
-*/
